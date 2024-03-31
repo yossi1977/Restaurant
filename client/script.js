@@ -13,12 +13,6 @@ const th_dishes = ["ID","Dishes Name","description","Price","Option"]
 const th_events = ["ID","Date","Time","Guests","Price","Client Name","Client Contact","Option"]
 const th_workers = ["ID","Firs Name","Last Name","Phone","Title","Salary","Option"]
 
-//the name  of the form
-
-
-//form array of scheme 
-// const client_scheme = ["client_firstName" ,"client_lastName" ,"client_phone" ,"client_email"]
-
 url = "http://localhost:3000"
 
 
@@ -309,11 +303,12 @@ function updateDishes () {
 function clintClearForm(){
     //get the form recreance
     const input = clientHeadForm.querySelectorAll("input , textarea")
-    //lop touch all the input
+    //lop through all the input
     input.forEach(input =>{
+    // set there value to ""   
         input.value = ""
     })
-    // set there value to ""
+  
 }
 function dishesClearForm(){
     const input = dishesHeadForm.querySelectorAll("input , textarea")
