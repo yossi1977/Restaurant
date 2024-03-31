@@ -1,0 +1,30 @@
+for event 
+
+{
+    "event_date": "2024-03-22",
+    "event_time": "18:00",
+    "number_of_ppl": 5,
+    "order_price": 500,
+    "clientName": "John Doe",
+    "clientContact": "050-7499660"
+}
+
+for worker
+
+{
+    "worker_firstName":"gay",
+    "worker_lastName" : "nor",
+     "worker_title" : "ceo",
+     "worker_phone" : "050-786555",
+     "worker_salary" : 18000
+}
+
+for client
+
+{
+    "client_firstName": "ban",
+    "client_lastName": "gin",
+    "client_phone": "055-7891111",
+    "client_email":"bangil@gmial.com"
+
+}
