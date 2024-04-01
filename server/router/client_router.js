@@ -1,6 +1,5 @@
 const  router = require("express").Router()
 const Client = require("../model/client_model")
-// const { findByIdAndDelete } = require("../model/dishes_model")
 
 
 router.get("/",async(req,res)=>{
@@ -43,7 +42,6 @@ router.put("/:id",async(req,res)=>{
     } catch (error) {
         console.log(error)
         res.status(500).json({message:"not success to update client ",error})
-        
     }
 })
 

@@ -28,3 +28,10 @@ for client
     "client_email":"bangil@gmial.com"
 
 }
+
+for user
+{
+   "user_name" :"ban",
+   "user_email" :"gin",
+   "user_password":"1234"
+}

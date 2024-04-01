@@ -7,6 +7,7 @@ const clientHeadForm = document.querySelector("#clientHeadForm")
 const dishesHeadForm  = document.querySelector("#dishesHeadForm")
 const workerHeadForm  = document.querySelector("#workerHeadForm")
 const eventHeadForm  = document.querySelector("#eventHeadForm")
+const signInHeadForm = document.querySelector("#signInHeadForm")
 // th array
 const th_client = ["ID","First Name","Last Name","Phone","Email","Option"]
 const th_dishes = ["ID","Dishes Name","description","Price","Option"]
@@ -154,12 +155,15 @@ function home_opp() {
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
+    signInHeadForm.style.display = "none"
+    
 }
 function client_opp(){
     clientHeadForm.style.display = "block"
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
+    signInHeadForm.style.display = "none"
     url_client = `${url}/clients`
     displayAndBuild(url_client,"clients",th_client,clientHeadForm)
 }
@@ -176,6 +180,7 @@ function dishes_opp(){
     dishesHeadForm.style.display ="block"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
+    signInHeadForm.style.display = "none"
     url_dishes = `${url}/dishes`
     displayAndBuild(url_dishes,"dishes",th_dishes,dishesHeadForm)
 }
@@ -184,10 +189,21 @@ function event_opp(){
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "block"
+    signInHeadForm.style.display = "none"
     url_events = `${url}/events`
     displayAndBuild(url_events,"events",th_events,eventHeadForm)
 }
-
+//sign in 
+function sign_in(){
+    show_home.style.display = "none" 
+    table.style.display ="none"
+    clientHeadForm.style.display = "none"
+    dishesHeadForm.style.display ="none"
+    workerHeadForm.style.display = "none"
+    eventHeadForm.style.display = "none"
+    signInHeadForm.style.display = "block"
+ 
+}
 
 function displayAndBuild(url,end_point,arr_th,formName){
     show_home.style.display = "none"
@@ -329,3 +345,5 @@ function eventClearForm(){
         input.value = ""
     })
 }
+
+
