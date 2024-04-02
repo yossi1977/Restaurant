@@ -17,7 +17,7 @@ app.use("/dishes",dishes_router)
 app.use("/workers",workers_router)
 app.use("/events",event_router)
 app.use("/clients",client_router)
-app.use("/register",user_router)
+app.use("/user",user_router)
 
 const port = process.env.PORT
 
