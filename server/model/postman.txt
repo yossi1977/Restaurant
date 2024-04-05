@@ -25,13 +25,26 @@ for client
     "client_firstName": "ban",
     "client_lastName": "gin",
     "client_phone": "055-7891111",
-    "client_email":"bangil@gmial.com"
+    "client_email":"bangil@gmail.com"
 
 }
 
-for user
+
+
+for user 
+
+
 {
-   "user_name" :"ban",
-   "user_email" :"gin",
-   "user_password":"1234"
+    "user_name": "ban",
+    "user_email":"bangil@gmail.com",
+    "user_password": "gin5553"
+   
+
+}
+
+for login
+
+{
+    "user_email":"bangil@gmail.com",
+    "user_password": "gin5553"
 }

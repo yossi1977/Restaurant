@@ -1,13 +1,15 @@
 const show_home = document.querySelector("#home_page")
 const table = document.querySelector(".table")
-const form_info  = document.querySelector("#addForm")
+const form_info  = document.querySelector(".addForm")
 const btn_add = document.querySelector("#btn_add")
 
 const clientHeadForm = document.querySelector("#clientHeadForm")
 const dishesHeadForm  = document.querySelector("#dishesHeadForm")
 const workerHeadForm  = document.querySelector("#workerHeadForm")
 const eventHeadForm  = document.querySelector("#eventHeadForm")
-const signInHeadForm = document.querySelector("#signInHeadForm")
+const registerHeadForm =document.querySelector("#registerHeadForm")
+const loginHeadForm = document.querySelector("#loginHeadForm")
+const navBar = document.querySelectorAll(".nav-bar")
 // th array
 const th_client = ["ID","First Name","Last Name","Phone","Email","Option"]
 const th_dishes = ["ID","Dishes Name","description","Price","Option"]
@@ -19,6 +21,7 @@ url = "http://localhost:3000"
 
 async function getApi(url,name,formName){
     try {
+     
       const response = await fetch(url)
       const data = await response.json()
         // console.log(data)
@@ -41,6 +44,7 @@ async function deleteItems(url,id,name){
 
 async function postItems(url,name,newItemData,formName){
     try {
+       
         const response = await fetch(`${url}/${name}`,{
             method: "POST",
             headers:{
@@ -49,7 +53,18 @@ async function postItems(url,name,newItemData,formName){
             body:JSON.stringify(newItemData)
             
         })
-        getApi(`${url}/${name}`,name,formName)
+        // to add the token to local storage 
+        if (name === "users/login"){
+            const data = await response.json()
+            if (data.success){
+                localStorage.setItem("token",JSON.stringify(data.token))
+            }
+        }
+        // when we call from register or login we don't  want to call the api 
+        if (name != "users/register" && name != "users/login"){
+             getApi(`${url}/${name}`,name,formName)
+            }
+        
     } catch (error) {
         console.log(error)  
     }
@@ -155,15 +170,16 @@ function home_opp() {
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
-    signInHeadForm.style.display = "none"
-    
+    registerHeadForm.style.display = "none"
+    loginHeadForm.style.display="none"
 }
 function client_opp(){
     clientHeadForm.style.display = "block"
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
-    signInHeadForm.style.display = "none"
+    registerHeadForm.style.display = "none"
+    loginHeadForm.style.display="none"
     url_client = `${url}/clients`
     displayAndBuild(url_client,"clients",th_client,clientHeadForm)
 }
@@ -172,6 +188,8 @@ function worker_opp(){
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "block"
     eventHeadForm.style.display = "none"
+    registerHeadForm.style.display = "none"
+    loginHeadForm.style.display="none"
     url_workers = `${url}/workers`
     displayAndBuild(url_workers,"workers",th_workers,workerHeadForm)
 }
@@ -180,7 +198,8 @@ function dishes_opp(){
     dishesHeadForm.style.display ="block"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
-    signInHeadForm.style.display = "none"
+    registerHeadForm.style.display = "none"
+    loginHeadForm.style.display="none"
     url_dishes = `${url}/dishes`
     displayAndBuild(url_dishes,"dishes",th_dishes,dishesHeadForm)
 }
@@ -189,29 +208,38 @@ function event_opp(){
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "block"
-    signInHeadForm.style.display = "none"
+    registerHeadForm.style.display = "none"
+    loginHeadForm.style.display="none"
     url_events = `${url}/events`
     displayAndBuild(url_events,"events",th_events,eventHeadForm)
 }
-//sign in 
-function sign_in(){
-    show_home.style.display = "none" 
-    table.style.display ="none"
+
+function register_opp(){
     clientHeadForm.style.display = "none"
     dishesHeadForm.style.display ="none"
     workerHeadForm.style.display = "none"
     eventHeadForm.style.display = "none"
-    signInHeadForm.style.display = "block"
- 
+    registerHeadForm.style.display = "block"
+    loginHeadForm.style.display="none"
+    show_home.style.display = "none"
+    table.style.display =  "none"
 }
-
+//link
+function register_link(){
+    registerHeadForm.style.display ="none"
+    loginHeadForm.style.display ="block"
+}
+function login_link(){
+    registerHeadForm.style.display ="block"
+    loginHeadForm.style.display ="none"
+}
 function displayAndBuild(url,end_point,arr_th,formName){
     show_home.style.display = "none"
     table.style.display =  "block"
     build_Th(arr_th)
     getApi(url,end_point,formName)
 }
- 
+
 // all submit forms btn
 function submitClient(flag = true,event){
     
@@ -294,6 +322,49 @@ function submitEvent(flag =true,event) {
     if (!flag) return newItemData
 }
 
+function submitRegister(flag=true, event){
+    if(event) event.preventDefault()
+    const registerName = document.getElementById("user_name").value;
+    const registerEmail = document.getElementById("email_register").value;
+    const registerPassword = document.getElementById("password_register").value;
+    const confirm_password = document.getElementById("confirm_password").value;
+    if(registerPassword != confirm_password ) return alert("password not mach")
+
+    const newItemData = {
+        user_name:registerName,
+        user_email:registerEmail,
+        user_password:registerPassword
+    }
+
+    if (flag){
+        postItems(url,"users/register", newItemData,registerHeadForm)
+        register_link()
+    } 
+    if (!flag) return newItemData
+
+}
+function submitLogin(flag=true, event){
+    if(event) event.preventDefault()
+    const loginEmail = document.getElementById("email_login").value;
+    const loginPassword = document.getElementById("password_login").value;
+    const newItemData = {
+        user_email:loginEmail,
+        user_password:loginPassword
+    }
+
+    if (flag) {
+        postItems(url,"users/login", newItemData,loginHeadForm)
+        // to open all the icon on nav bar
+        navBar.forEach(val => {
+        val.style.display = "block"
+        //using this function will send him to home 
+        home_opp()
+        });
+       
+    if (!flag ) return newItemData
+
+}}
+
 //all update btn
 function updateClient(){
     // get back the new date before i update
@@ -345,5 +416,3 @@ function eventClearForm(){
         input.value = ""
     })
 }
-
-

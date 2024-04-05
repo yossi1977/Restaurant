@@ -46,7 +46,7 @@ userLogin:async (req,res)=>{
         if (!user_password || !user_email) throw new Error ("you need to insert all credential to log in")
         //if the email inside the db he will  return all the object if not it return none
         const user = await User.findOne({user_email})
-        // check if the user password in the db
+        // check if the user pass word in the db
         if (!user) throw new Error("email is not valid")
         const ifPassword = await compare(user_password,user.user_password)
         if(!ifPassword) throw new Error("password is not valid")

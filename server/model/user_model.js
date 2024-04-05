@@ -16,7 +16,17 @@ const user_schema = new mongoose.Schema({
         required:true,
         min:5
     },
-},)
+    token:[{
+       type:Object
+    }]
+   
+})
 
-module.exports = mongoose.model("Users",user_schema)
-//{timestamps:true}
+module.exports = mongoose.model("Users",user_schema) 
+
+
+
+
+
+// tokens:[{type:Object}]
+// },{timestamps:true})
